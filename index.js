@@ -88,17 +88,7 @@ app.get('/review', async(req , res) => {
 })
 
 
-app.get('/user/:email', async(req, res) => {
-  const email = req.params.email;
-  const query = {email : email};
-  const user = await userCollection.findOne(query);
-  const isAdmin = false;
-  if(user?.role === "admin"){
-    isAdmin = true;
-  }
-  res.json({admin: is})
 
-});
 
 
 app.post('/user', async(req, res) => {
@@ -132,6 +122,18 @@ app.put('/user/admin', async(req, res) => {
 });
    
     
+
+app.get('/user/:email', async(req, res) => {
+  const email = req.params.email;
+  const query = {email : email};
+  const user = await userCollection.findOne(query);
+  let isAdmin = false;
+  if(user?.role === "admin"){
+    isAdmin = true;
+  }
+  res.json({admin: isAdmin})
+
+});
 
   }
   finally{
